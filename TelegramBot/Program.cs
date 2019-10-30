@@ -9,48 +9,66 @@ using System.Text;
 namespace TelegramBot
 {
     class Program
-    {
+    {        
+        const string QUETIONS_ANSWERS_DB = @"C:\Users\fromt\source\repos\TelegramBot\TelegramBot\QuestionsAnswers.json";
+        private static Dictionary<string, string> QuestionsAnswers;
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello. What do you want to ask?");
-
-            var QuestionsAnswersFile = File.ReadAllText(@"C:\Users\fromt\source\repos\TelegramBot\TelegramBot\QuestionsAnswers.json");
-            var QuestionsAnswers = JsonConvert.DeserializeObject<Dictionary<string, string>>(QuestionsAnswersFile);
-
+            var QuestionsAnswersFile = File.ReadAllText(QUETIONS_ANSWERS_DB);
+            QuestionsAnswers = JsonConvert.DeserializeObject<Dictionary<string, string>>(QuestionsAnswersFile);
+            
+            TelegramAPI Api = new TelegramAPI();
             while (true)
             {
-                var UserQuestion = Console.ReadLine();
-                var Answers = new List<string>();
-
-                foreach (var entry in QuestionsAnswers)
+                var updates = Api.GetUpdates();
+                foreach(var update in updates)
                 {
-                    if (UserQuestion.ToLower().Contains(entry.Key.ToLower()))
-                    {
-                        Answers.Add(entry.Value);
-                    }
-                }
+                    var answer = answerQuestion(update.message.text);
+                    var message = $"Dear, {update.message.chat.first_name}, {answer}";
+                    Api.SenMessage(message, update.message.chat.id);
+                }               
+            }            
+        }
 
-                if (UserQuestion.ToLower().Contains("what time is it"))
-                {
-                    Answers.Add($"Current time: {DateTime.Now.ToString("HH:mm")}");                    
-                }
-
-                if (UserQuestion.ToLower().Contains("what day is it"))
-                {
-                    Answers.Add($"Today: {DateTime.Now.ToString("dd.MM.yyyy")}");
-                }
-
-                if (UserQuestion.ToLower().Contains("bye"))
-                {
-                    Console.WriteLine("I'm tired anyway, so bye.");
-                    break;
-                }
-
-                var result = String.Join(", ", Answers);
-                Console.WriteLine($"Bot says: {result}");
+        private static string answerQuestion(string question)
+        {
+            if(question==null)
+            {
+                return "I dont't understand you";
             }
 
-            Console.ReadKey();            
+            var Answers = new List<string>();
+
+            foreach (var entry in QuestionsAnswers)
+            {
+                if (question.ToLower().Contains(entry.Key.ToLower()))
+                {
+                    Answers.Add(entry.Value);
+                }
+            }
+
+            if (question.ToLower().Contains("what time is it"))
+            {
+                Answers.Add($"Current time: {DateTime.Now.ToString("HH:mm")}");
+            }
+
+            if (question.ToLower().Contains("what day is it"))
+            {
+                Answers.Add($"Today: {DateTime.Now.ToString("dd.MM.yyyy")}");
+            }
+
+            if (question.ToLower().Contains("bye"))
+            {
+                Answers.Add("I'm tired anyway, so bye.");                
+            }
+
+            if (Answers.Count == 0)
+            {
+                Answers.Add("I dont't understand you");
+            }
+
+            var result = String.Join(", ", Answers);
+            return result;
         }
     }
 }
