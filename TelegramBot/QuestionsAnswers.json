@@ -1,12 +1,18 @@
 {
-    "Hello": "Hello human!",
-    "What a you doing": "I answer the stupid questions of leather bastards.",
-    "How are you": "I'm great, thanks.",
-    "Who is your creator": "I was created by Vadim Turetsky.",
-    "Bye": "I'm tired anyway, so bye.",
-    "������": "������, �������!",
-    "What a you doing": "I answer the stupid questions of leather bastards.",
-    "How are you": "I'm great, thanks.",
-    "Who is your creator": "I was created by Vadim Turetsky.",
-    "Bye": "I'm tired anyway, so bye."
+	"Bye": "I'm tired anyway, so bye.",
+	"Hello": "Hello human!",
+	"How are you": "I'm great, thanks.",
+	"What are you doing": "I answer the stupid questions of leather bastards.",
+	"Who is your creator": "I was created by Vadim Turetsky.",
+	"Is there life on Mars": "Not yet, but Elon Musk will be there soon.",
+	"Who is the president of Russia": "Vladimir Putin is a fine fellow, politician leader and fighter!",
+	"What color is the sky": "Blue on the Earth.",
+	"Привет": "Привет, человек!",
+	"Пока": "Я все равно устал, т.ч. пока.",    
+	"Как дела": "Я отлично, спасибо.",
+	"Что делаешь": "Отвечаю на глупые вопросы кожаных ублюдков.",
+	"Кто твой создатель": "Меня создал Вадим Турецкий.",
+	"Есть ли жизнь на марсе": "Пока нет, но Илон Маск скоро там будет.",
+	"Кто президент России": "Владимир Путин молодец, политик лидер и боец!",
+	"Какого цвета небо": "На Земле голубое."
 }

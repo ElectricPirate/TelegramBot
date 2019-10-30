@@ -7,7 +7,7 @@ namespace TelegramBot
     
     public class Token
     {
-        public const string API_KEY = "YOUR_TOKEN_KEY";
+        public const string API_KEY = "296081733:AAFI0bJB-D5mXelFup6hCzRcHFJoaJEtpF4";
         public Token() { }
 
     }

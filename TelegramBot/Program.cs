@@ -11,12 +11,17 @@ namespace TelegramBot
     class Program
     {        
         const string QUETIONS_ANSWERS_DB = @"C:\Users\fromt\source\repos\TelegramBot\TelegramBot\QuestionsAnswers.json";
+
         private static Dictionary<string, string> QuestionsAnswers;
         static void Main(string[] args)
-        {
-            var QuestionsAnswersFile = File.ReadAllText(QUETIONS_ANSWERS_DB);
+        {                       
+            var QuestionsAnswersFile = File.ReadAllText(QUETIONS_ANSWERS_DB, Encoding.Default);
             QuestionsAnswers = JsonConvert.DeserializeObject<Dictionary<string, string>>(QuestionsAnswersFile);
-            
+
+            Console.WriteLine(QuestionsAnswers);
+
+
+
             TelegramAPI Api = new TelegramAPI();
             while (true)
             {
@@ -24,15 +29,15 @@ namespace TelegramBot
                 foreach(var update in updates)
                 {
                     var answer = answerQuestion(update.message.text);
-                    var message = $"Dear, {update.message.chat.first_name}, {answer}";
-                    Api.SenMessage(message, update.message.chat.id);
+                    //var message = $"Dear, {update.message.chat.first_name}, {answer}";
+                    Api.SenMessage(answer, update.message.chat.id);
                 }               
             }            
         }
 
         private static string answerQuestion(string question)
         {
-            if(question==null)
+            if (question == null)
             {
                 return "I dont't understand you";
             }
